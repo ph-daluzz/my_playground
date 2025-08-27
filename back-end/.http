@@ -1,0 +1,16 @@
+### Registrar entrada (POST)
+POST http://localhost:3000/entrada
+Content-Type: application/json
+
+{
+  "placa": "GHI9012"
+}
+
+
+### Registrar saída (POST)
+POST http://localhost:3000/saida 
+Content-Type: application/json
+
+{
+  "placa": "GHI9012"
+}
