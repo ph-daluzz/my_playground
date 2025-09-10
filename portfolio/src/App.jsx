@@ -5,7 +5,7 @@ import './App.css'
 function App() {
   const baixarCurriculo = () => {
     const link = document.createElement('a');
-    link.href = '/components/PEDRO_HENRIQUE_DA_LUZ_CURRICULO.pdf'; // Caminho para o arquivo PDF no diretório public
+    link.href = '/PEDRO_HENRIQUE_DA_LUZ_CURRICULO.pdf'; // Caminho para o arquivo PDF no diretório public
     link.download = 'PEDRO_HENRIQUE_DA_LUZ_CURRICULO.pdf'; // Nome do arquivo ao ser baixado
     document.body.appendChild(link);
     link.click();
