@@ -24,7 +24,7 @@ function App() {
       <header id="header">
         <a href="https://www.instagram.com/ph.daluzz" target="_blank" rel="noopener noreferrer">
           <div id="img-container">
-            <img id="profile-pic" src="./eu.jpg" alt="Minha foto" />
+            <img id="profile-pic" src="/eu.jpg" alt="Minha foto" />
           </div>
         </a>
         <div id="header-titles">
