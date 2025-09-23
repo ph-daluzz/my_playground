@@ -1,22 +1,22 @@
-export function RenderizarFilmes({ filmesEncontrados }) {
-    // filtrar filmes para não haver renderização duplicada nos IDs
-    const filmesUnicos = filmesEncontrados.filter(
-        (filme, index, self) =>
-            index === self.findIndex(filmeVerificado => filmeVerificado.imdbID === filme.imdbID)
-    );
+export function RenderizarFilmes({ filmesEncontrados, imagensFilmes }) {
+  // filtrar filmes para não haver renderização duplicada nos IDs
+  const filmesUnicos = filmesEncontrados.filter(
+    (filme, index, self) =>
+      index === self.findIndex(filmeVerificado => filmeVerificado.id === filme.id)
+  );
 
-    return (
-        <div style={styles.container_filmes}>
-            {filmesUnicos.map(filme => (
-                <div key={filme.imdbID} style={styles.card_filme}>
-                    <img src={filme.Poster} alt={filme.Title} style={styles.poster} />
-                    <h3 style={styles.titulo_filme}>{filme.Title}</h3>
-                    <p>{filme.Year}</p>
-                    <button style={styles.botao_assistir}><strong>VER TRAILER</strong></button>
-                </div>
-            ))}
+  return (
+    <div style={styles.container_filmes}>
+      {filmesUnicos.map(filme => (
+        <div key={filme.id} style={styles.card_filme}>
+          <img src={filme.poster_omdb} alt={filme.title} style={styles.poster} />
+          <h3 style={styles.titulo_filme}>{filme.title}</h3>
+          <p>{filme.release_date}</p>
+          <button style={styles.botao_assistir}><strong>VER TRAILER</strong></button>
         </div>
-    );
+      ))}
+    </div>
+  );
 }
 
 const styles = {
@@ -35,7 +35,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent:'space-around',
+    justifyContent: 'space-around',
     borderRadius: '10px',
     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
   },
@@ -44,7 +44,7 @@ const styles = {
     width: '100%',
     height: '300px',
     borderRadius: '5px',
-    objectFit: 'cover',
+    objectFit: 'scale-down',
     marginBottom: '5px',
   },
 

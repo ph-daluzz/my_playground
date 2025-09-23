@@ -6,23 +6,54 @@ export function HomeScreen() {
   const [filmePesquisa, setFilmePesquisa] = useState('');
   const [filmeEncontrado, setFilmeEncontrado] = useState([])
 
+  // instancia de axios com tmdb
+  const tmdb = axios.create({
+    baseURL: 'https://api.themoviedb.org/3',
+    headers: {
+      Authorization: `Bearer ${process.env.REACT_APP_TMDB_BEARER}`,
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  });
 
-  const handleMovieSearch = (event) => {
-    if (!filmePesquisa.trim())
-      return
+  const handleMovieSearch = async () => {
+    if (!filmePesquisa.trim()) return;
 
-    axios.get(`${process.env.REACT_APP_API_URL}&s=${filmePesquisa}`)
-      .then(response => {
-        // coloca os filmes encontrados na variável de estado
-        setFilmeEncontrado(response.data.Search)
-        console.log(filmeEncontrado)
-
+    try {
+      let res = await tmdb.get('/search/movie', {
+        params: {
+          query: filmePesquisa,
+          language: 'pt-BR',
+        },
 
       })
-      .catch(error => {
-        console.error('Erro ao resgatar informações do filme!', error);
-      });
-  }
+      const filmes = res.data.results
+
+      // resgatar poster dos filmes a partir de outra API (OMDb)
+      const filmesComImagens = await Promise.all(
+        filmes.map(async (filme) => {
+          const tituloIngles = filme.original_title;
+
+          const omdbRes = await axios.get('https://www.omdbapi.com/', {
+            params: {
+              apikey: process.env.REACT_APP_OMDB_POSTERS,
+              t: tituloIngles
+            }
+          })
+
+          return {
+            ...filme,
+            poster_omdb: omdbRes.data.Poster !== 'N/A' ? omdbRes.data.Poster : null
+          }
+        })
+      )
+
+      console.log(res)
+      setFilmeEncontrado(filmesComImagens)
+    } catch (error) {
+      console.error('Erro ao buscar o filme:', error);
+    }
+  };
+
 
   return (
     <div style={styles.container}>
@@ -36,7 +67,8 @@ export function HomeScreen() {
           <input type="text"
             style={stylesHeader.input}
             placeholder="Procurar filme"
-            onChange={(event) => setFilmePesquisa(event.target.value)} />
+            onChange={(event) => setFilmePesquisa(event.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleMovieSearch()} />
           <button onClick={handleMovieSearch} style={stylesHeader.input_button}>Buscar</button>
         </div>
       </header>
