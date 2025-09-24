@@ -7,53 +7,6 @@ export function HomeScreen() {
   const [filmeEncontrado, setFilmeEncontrado] = useState([])
 
   // instancia de axios com tmdb
-  const tmdb = axios.create({
-    baseURL: 'https://api.themoviedb.org/3',
-    headers: {
-      Authorization: `Bearer ${process.env.REACT_APP_TMDB_BEARER}`,
-      'Content-Type': 'application/json;charset=utf-8',
-    },
-  });
-
-  const handleMovieSearch = async () => {
-    if (!filmePesquisa.trim()) return;
-
-    try {
-      let res = await tmdb.get('/search/movie', {
-        params: {
-          query: filmePesquisa,
-          language: 'pt-BR',
-        },
-
-      })
-      const filmes = res.data.results
-
-      // resgatar poster dos filmes a partir de outra API (OMDb)
-      const filmesComImagens = await Promise.all(
-        filmes.map(async (filme) => {
-          const tituloIngles = filme.original_title;
-
-          const omdbRes = await axios.get('https://www.omdbapi.com/', {
-            params: {
-              apikey: process.env.REACT_APP_OMDB_POSTERS,
-              t: tituloIngles
-            }
-          })
-
-          return {
-            ...filme,
-            poster_omdb: omdbRes.data.Poster !== 'N/A' ? omdbRes.data.Poster : null
-          }
-        })
-      )
-
-      console.log(res)
-      setFilmeEncontrado(filmesComImagens)
-    } catch (error) {
-      console.error('Erro ao buscar o filme:', error);
-    }
-  };
-
 
   return (
     <div style={styles.container}>
