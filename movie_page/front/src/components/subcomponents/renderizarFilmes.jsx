@@ -1,4 +1,11 @@
+import { useNavigate } from 'react-router-dom';
+
+
 export function RenderizarFilmes({ filmesEncontrados, imagensFilmes }) {
+
+  //navigator
+  const navigate = useNavigate()
+
   // filtrar filmes para não haver renderização duplicada nos IDs
   const filmesUnicos = filmesEncontrados.filter(
     (filme, index, self) =>
@@ -9,10 +16,10 @@ export function RenderizarFilmes({ filmesEncontrados, imagensFilmes }) {
     <div style={styles.container_filmes}>
       {filmesUnicos.map(filme => (
         <div key={filme.id} style={styles.card_filme}>
-          <img src={filme.poster_omdb} alt={filme.title} style={styles.poster} />
+          <img src={filme.posterURL} alt={filme.title} style={styles.poster} />
           <h3 style={styles.titulo_filme}>{filme.title}</h3>
           <p>{filme.release_date}</p>
-          <button style={styles.botao_assistir}><strong>VER TRAILER</strong></button>
+          <button onClick={() => navigate('/movie+details')} style={styles.botao_assistir}><strong>VER TRAILER</strong></button>
         </div>
       ))}
     </div>

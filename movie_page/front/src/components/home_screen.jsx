@@ -1,12 +1,37 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RenderizarFilmes } from './subcomponents/renderizarFilmes.jsx'
 
 export function HomeScreen() {
   const [filmePesquisa, setFilmePesquisa] = useState('');
   const [filmeEncontrado, setFilmeEncontrado] = useState([])
 
-  // instancia de axios com tmdb
+  useEffect(() => {
+    //funcao para hook useEffect para resgatar filmes mais vistos da semana
+    const effectTrendMovies = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/topMovies')
+        setFilmeEncontrado(response.data)
+      } catch (error) {
+        console.log(error, "erro no useEffect filmes da semana")
+      }
+    }
+    effectTrendMovies()
+  }, [])
+
+
+
+  // funcao que chama api para buscar filmes com base no valor digitado no input
+  const chamarApiFilmes = async () => {
+    try {
+      // faz a requisição ao localhost
+      const apiResponse = await axios.get(`http://localhost:3000/search/${filmePesquisa}`)
+      setFilmeEncontrado(apiResponse.data)
+
+    } catch (error) {
+      console.log(error, "erro no front")
+    }
+  }
 
   return (
     <div style={styles.container}>
@@ -21,16 +46,14 @@ export function HomeScreen() {
             style={stylesHeader.input}
             placeholder="Procurar filme"
             onChange={(event) => setFilmePesquisa(event.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleMovieSearch()} />
-          <button onClick={handleMovieSearch} style={stylesHeader.input_button}>Buscar</button>
+            onKeyDown={(e) => e.key === 'Enter' && chamarApiFilmes()} />
+          <button onClick={chamarApiFilmes} style={stylesHeader.input_button}>Buscar</button>
         </div>
       </header>
 
       <main style={styles.main_style}>
         <section style={styles.main_section}>
-          <section style={styles.main_section_sidebar}>
-            <p>Selecione um filtro</p>
-          </section>
+    
           {/* Componente de renderização dos filmes encontrados */}
           <RenderizarFilmes filmesEncontrados={filmeEncontrado} />
         </section>
