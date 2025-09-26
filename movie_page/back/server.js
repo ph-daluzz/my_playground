@@ -8,6 +8,11 @@ const app = express()
 const port = 3000
 app.use(express.json())
 
+// importging cors
+const cors = require('cors')
+app.use(cors())
+
+
 // importing routes
 const rotaFilmes = require('./routes/rotasFilmes.js')
 app.use("/", rotaFilmes)

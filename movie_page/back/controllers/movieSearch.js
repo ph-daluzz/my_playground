@@ -1,8 +1,8 @@
 const axios = require("axios")
 async function buscarFilmes(req, res) {
 
-    const query = req.body.q
-    const lang = req.body.lang
+    const query = req.params.movieName
+    const lang = req.query.lang
 
     // query validating
     if (!query) {
