@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 
-export function RenderizarFilmes({ filmesEncontrados, imagensFilmes }) {
+export function RenderizarFilmes({ filmesEncontrados }) {
 
   //navigator
   const navigate = useNavigate()
@@ -18,8 +18,14 @@ export function RenderizarFilmes({ filmesEncontrados, imagensFilmes }) {
         <div key={filme.id} style={styles.card_filme}>
           <img src={filme.posterURL} alt={filme.title} style={styles.poster} />
           <h3 style={styles.titulo_filme}>{filme.title}</h3>
-          <p>{filme.release_date}</p>
-          <button onClick={() => navigate('/movie+details')} style={styles.botao_assistir}><strong>VER TRAILER</strong></button>
+
+          <button onClick={() => {
+            console.log(`id navegado: ${filme.id}`)
+            navigate(`/movie_details/${filme.id}`)
+          }}
+            style={styles.botao_assistir}>
+            <strong>VER TRAILER</strong>
+          </button>
         </div>
       ))}
     </div>
@@ -30,27 +36,27 @@ const styles = {
   container_filmes: {
     display: 'grid',
     gap: '10px',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
     width: '100%',
     padding: '20px',
     boxSizing: 'border-box',
   },
 
   card_filme: {
-    backgroundColor: 'white',
-    padding: '5px',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    padding: '10px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
     borderRadius: '10px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    boxShadow: '0 2px 8px rgba(49, 49, 49, 0.1)',
   },
 
   poster: {
     width: '100%',
     height: '300px',
-    borderRadius: '5px',
+    borderRadius: '10px',
     objectFit: 'scale-down',
     marginBottom: '5px',
   },

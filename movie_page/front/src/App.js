@@ -10,7 +10,7 @@ function App() {
       <Routes>
         {/*ROTAS PRINCIPAIS*/}
         <Route path='/' element={<HomeScreen />} />
-        <Route path='/movie+details' element={<MovieDetails />} />
+        <Route path='/movie_details/:id' element={<MovieDetails />} />
 
         {/*ROTA FALLBACK CASO 404*/}
         <Route path="*" element={<Navigate to="/" />} />

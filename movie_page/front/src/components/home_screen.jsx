@@ -37,9 +37,11 @@ export function HomeScreen() {
     <div style={styles.container}>
 
       <header style={stylesHeader.header_container}>
-        <h1 style={stylesHeader.h1}>
-          AbsoluteCinema
-        </h1>
+        <a href="/" style={{ textDecoration: 'none', margin: "none" }}>
+          <h1 style={stylesHeader.h1}>
+            AbsoluteCinema
+          </h1>
+        </a>
         <div>
 
           <input type="text"
@@ -53,12 +55,12 @@ export function HomeScreen() {
 
       <main style={styles.main_style}>
         <section style={styles.main_section}>
-    
+
           {/* Componente de renderização dos filmes encontrados */}
-          <RenderizarFilmes filmesEncontrados={filmeEncontrado} />
-        </section>
+          {filmeEncontrado ? <RenderizarFilmes filmesEncontrados={filmeEncontrado} /> : <p> Carregando...</p>
+          }</section>
       </main>
-    </div>
+    </div >
   );
 }
 
@@ -69,12 +71,12 @@ const styles = {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: 'lightgray'
   },
 
   main_style: {
     padding: '10px',
     width: '100%',
-    backgroundColor: 'lightgray'
   },
 
   main_section: {
@@ -124,6 +126,8 @@ const stylesHeader = {
   },
   h1: {
     color: 'red',
+    margin: '10px',
+    padding: '0px'
   },
   input_button: {
     height: '3vh',
