@@ -1,7 +1,7 @@
 const axios = require('axios')
 async function trendingMovies(req, res) {
     try {
-        const trendMovies = await axios.get('https://api.themoviedb.org/3/trending/movie/week',
+        const trendMovies = await axios.get('https://api.themoviedb.org/3/trending/movie/day',
             {
                 params: {
                     language: 'pt-BR' || 'en-US'
