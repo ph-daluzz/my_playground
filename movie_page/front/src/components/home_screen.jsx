@@ -54,6 +54,7 @@ export function HomeScreen() {
       </header>
 
       <main style={styles.main_style}>
+        <h1 style={{ textAlign: "center" }}>FILMES MAIS VISTOS DO DIA</h1>
         <section style={styles.main_section}>
 
           {/* Componente de renderização dos filmes encontrados */}
@@ -114,6 +115,8 @@ const stylesHeader = {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    position: 'sticky',
+    top:'0px'
   },
 
   input: {
