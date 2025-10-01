@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { Details } from './subcomponents/renderMovieDetails'
 
 export function MovieDetails() {
@@ -11,7 +11,6 @@ export function MovieDetails() {
         async function resgatarFilme() {
             try {
                 const filme_resgatado = await axios.get(`http://localhost:3000/detalhes/${id}`)
-                console.log(filme_resgatado.data.backdropURL)
                 setFilme(filme_resgatado.data)
             } catch (erro) {
                 console.log(erro)
@@ -23,7 +22,6 @@ export function MovieDetails() {
 
     return (
         <div style={styles.container}>
-
             <header style={stylesHeader.header_container}>
                 <a href="/" style={{ textDecoration: 'none', margin: "none" }}>
                     <h1 style={stylesHeader.h1}>
@@ -86,9 +84,13 @@ const stylesHeader = {
         width: '100%',
         height: 'fit-content',
         backgroundColor: '#530000ff',
+
         display: 'flex',
         justifyContent: 'space-evenly',
         alignItems: 'center',
+        position: 'sticky',
+        top: '0px'
+
     },
 
     input: {
