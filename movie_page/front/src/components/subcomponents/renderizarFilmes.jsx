@@ -24,7 +24,7 @@ export function RenderizarFilmes({ filmesEncontrados }) {
             navigate(`/movie_details/${filme.id}`)
           }}
             style={styles.botao_assistir}>
-            <strong>VER TRAILER</strong>
+            <strong>VER DETALHES</strong>
           </button>
         </div>
       ))}
