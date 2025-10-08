@@ -8,6 +8,8 @@ yarn-error.log*
 .env
 .env.*
 
+# Tests
+.http
 # Logs
 logs/
 *.log
